@@ -1,0 +1,18 @@
+{
+  "name": "micro-frontends-in-action-code",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "01_pages_links": "concurrently --names \"decide ,inspire\" \"mfserve --listen 3001 01_pages_links/team-decide\" \"mfserve --listen 3002 01_pages_links/team-inspire\" \"wait-on http://localhost:3001/product/porsche && opener http://localhost:3001/product/porsche\"",
+    "02_iframe": "concurrently --names \"decide ,inspire\" \"mfserve --listen 3001 02_iframe/team-decide\" \"mfserve --listen 3002 02_iframe/team-inspire\" \"wait-on http://localhost:3001/product/porsche && opener http://localhost:3001/product/porsche\""
+  },
+  "author": "asmaa.saber93@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "@microfrontends/serve": "^11.3.0",
+    "concurrently": "^6.0.2",
+    "opener": "^1.5.2",
+    "wait-on": "^5.3.0"
+  }
+}
