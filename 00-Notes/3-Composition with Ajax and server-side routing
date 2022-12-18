@@ -1,0 +1,63 @@
+### Composition via Ajax
+  - one team `exposes` the shared component as a fragment
+  - other teams can `load` the fragment and inserts it into their DOM.
+  - teams should decide the URL for the fragment
+
+    #### How to do it
+    - create the Folder structure
+      - team who will expose the fragment should have a folder holds all fragments he will expose 
+      - team who consume the fragment should make ajax call for this fragment
+    - the fragment references its own CSS and JS files from the markup. The URL has to be absolute
+
+    #### Namespacing styles and scripts
+      - ***Isolating styles***
+        - the most practical solution is to namespace all CSS selectors
+        - using Css methodologies like BEM with an extra team-level prefix.
+
+      - ***Isolating JS***
+        - inter-team conventions to avoid collisions in the browser
+        - write your code in a non-global way. (wrap your script in an IIFE)
+        - A good alterna- tive is to write your data to your markup in a declarative way *(Page 46)*.
+
+
+    #### The benefits
+      - ***natural document flow***
+          - Being part of this flow means that a fragment takes pre- cisely the space it needs.
+          - page adapts in height automatically.
+      - ***search engines and accessibility***
+        - search engines bots execute JavaScript and index the assembled page.
+        - screen readers also support this, It’s essential, though, that the combined markup semantically makes sense as a whole
+      - ***progressive enhancement***
+        - doesn’t introduce a lot of extra code.
+        - You can provide a reliable fallback in case JavaScript failed or hasn’t executed yet.
+        - users with broken JavaScript will see the link, which will bring them to the standalone page.
+      - ***flexible error handling***
+        - When the fetch () call fails or takes too long, you can decide what you want to do.
+
+    #### The drawbacks
+      - ***asynchronous loading***
+        - asynchronous loading via JavaScript causes this delay
+      - ***missing isolation***
+        - To avoid conflicts, teams have to agree on inter-team conventions for namespacing
+      - ***server request required***
+        - every user interaction triggers a new call to the server to generate the updated markup.
+      - ***no lifecycle for scripts***
+
+    #### When does an Ajax integration make sense?
+      - If you are generating your markup on the `server-side`, this solution makes sense
+      - For fragments that contain a lot of `interactivity and have local state, it might become tricky`. Loading and reloading the markup from the server on every interaction might feel sluggish due to network latency.
+
+
+### Server-side routing via Nginx
+   ![Frontend Proxy](/Images/FrontendProxy.png)
+  - ***Problem:*** 
+    - the URLs are quite long and hard to remember.
+    - This distributed setup worked flawlessly, but switching domains on every click is not optimal.
+
+  - ***Solution:*** 
+    1. A shared web server `(Frontend Proxy)` is needed. It will be the central point where all requests will arrive initially.
+    It `does not contain any business logic` besides this.
+    2. The server routes all requests to the responsible application.
+    3. In development environment, each team uses different port numbers instead of configuring actual domain names.]
+   
+
