@@ -1,8 +1,9 @@
 <html>
   <head>
     <title>Eicher Diesel 215/16</title>
-    <link href="/static/page.css" rel="stylesheet" />
-    <link href="/static/outlines.css" rel="stylesheet" />
+    <!-- addind /decide/ fot Namespacing resources -->
+    <link href="/decide/static/page.css" rel="stylesheet" />
+    <link href="/decide/static/outlines.css" rel="stylesheet" />
   </head>
   <body class="layout">
     <h1 class="header">The Tractor Store</h1>
@@ -10,17 +11,21 @@
       <h2>Eicher Diesel 215/16</h2>
       <img class="image" src="https://mi-fr.org/img/eicher.svg" />
     </div>
+    <!-- replace the domain with the team-perfix -->
     <aside 
       class="recos"
-      data-fragment="http://localhost:3002/fragment/recommendations/eicher"
+      data-fragment="/inspire/fragment/recommendations/eicher"
     >
-      <!-- <a href="http://localhost:3002/recommendations/eicher">
-        Show Recommendations
-      </a> -->
 
-      <!-- <iframe src="http://localhost:3002/recommendations/eicher"></iframe> -->
+      <!-- /recommendations/ exists on Nginx config as a proxy_pass -->
+      <a href="/recommendations/eicher">
+        Show Recommendations
+      </a>
+      
     </aside>
-    <script src="/static/page.js" async></script>
+
+    <!-- addind /decide/ fot Namespacing resources -->
+    <script src="/decide/static/page.js" async></script>
 
   </body>
 </html>

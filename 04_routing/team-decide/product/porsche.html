@@ -1,6 +1,8 @@
 <html>
   <head>
     <title>Porsche-Diesel Master 419</title>
+
+    <!-- addind /decide/ fot Namespacing resources -->
     <link href="/decide/static/outlines.css" rel="stylesheet" />
     <link href="/decide/static/page.css" rel="stylesheet" />
   </head>
@@ -10,15 +12,20 @@
       <h2>Porsche-Diesel Master 419</h2>
       <img class="image" src="https://mi-fr.org/img/porsche.svg" />
     </div>
+
+    <!-- replace the domain with the team-perfix -->
     <aside 
       class="recos"
       data-fragment="/inspire/fragment/recommendations/porsche"
     >
+
+      <!-- /recommendations/ exists on Nginx config as a proxy_pass -->
       <a href="/recommendations/porsche">
         Show Recommendations
       </a>
     </aside>
 
+    <!-- addind /decide/ fot Namespacing resources -->
     <script src="/decide/static/page.js" async></script>
   </body>
 </html>

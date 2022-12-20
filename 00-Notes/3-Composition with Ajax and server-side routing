@@ -58,6 +58,53 @@
     1. A shared web server `(Frontend Proxy)` is needed. It will be the central point where all requests will arrive initially.
     It `does not contain any business logic` besides this.
     2. The server routes all requests to the responsible application.
-    3. In development environment, each team uses different port numbers instead of configuring actual domain names.]
-   
+    3. In development environment, each team uses different port numbers instead of configuring actual domain names.] 
+    
+    #### [Nginx](https://nginx.org/en/docs/beginners_guide.html#proxy) 
+      - Forwarding a request to another server `(proxy_pass/upstream)`
+      - Keep in mind that the web server introduces an extra network hop. To reduce latency, you might want your web and application servers to be located in the same data center.
 
+        ##### Namespacing resources
+          - to prevent URL structure overlap 
+          - we need to adjust the internal references to the CSS and JS files
+          - Everything that starts with `teamname` goes to upstream `teamname`.
+            ##### Route configuration methods
+              
+              - **STRATEGY 1: TEAM ROUTES ONLY** 
+              `Team-specific routes (like /decide/)`
+                - ***Pros:*** your central routes configuration only changes when you introduce a new team to the project.
+                - ***Cons:*** 
+                  - You are exposing your internal team structure through the URLs.
+                  - introduce words which a search engine bot would read and add to their index
+              - **STRATEGY 2: DYNAMIC ROUTE CONFIGURATION** 
+              `Page-specific routes (like /product/)`
+              putting the information about which team owns which page into your frontend proxy’s routing table
+                - ***Cons:***: proxy’s routing table will quickly grow. And when your routes are not only prefix-based but include regular expressions, it can get **hard to maintain**.
+
+        #### Infrastructure ownership
+
+        ![Infrastructure Ownership](/Images/InfrastructureOwnership.png)
+
+        #### When does it make sense
+          - **Technical benefits**
+            - Avoids browser security issues (CORS)
+            - Enables sharing data like login-state through cookies
+            - Better performance (only one DNS lookup, SSL handshake, ...)
+          - If you are building a customer-facing site that should be indexed by search engines, you definitely want to implement a shared web server.
+
+
+
+
+
+
+### Summary
+  -  You can integrate the contents of multiple pages into a single document by loading them via Ajax.
+  -  Compared to the iframe approach, a deeper Ajax integration is better for acces- sibility, search engine compatibility, and performance.
+  -  Since the Ajax integration puts fragments into the same document, it’s possible to have style collisions.
+  -  You can avoid CSS collisions by introducing team namespaces for CSS classes.
+  -  You can route the content of multiple applications through one frontend
+  proxy, which serves all content through a unified domain.
+  -  Using team prefixes in the URL path is an excellent way to make debugging
+  and routing easier.
+  -  Every piece of software should have clear ownership. When possible, avoid cre-
+  ating horizontal teams like a platform team.
